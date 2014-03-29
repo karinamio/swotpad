@@ -1,6 +1,7 @@
-from flask import render_template, flash, redirect, request
+from flask import render_template, flash, redirect, request, url_for
 from app import app
 from forms import InputForm
+from models import db
 import random
 
 @app.route('/')
@@ -27,6 +28,13 @@ def generate():
 @app.route('/report.html')
 def report():
 	return render_template("report.html")
+
+@app.route('/testdb')
+def testdb():
+	if db.session.query("1").from_statement("SELECT 1").all():
+		return 'It works.'
+	else:
+		return "Something is broken."	
 
 @app.errorhandler(404)
 def not_found(error):
