@@ -1,4 +1,4 @@
-from flask import render_template, flash, redirect
+from flask import render_template, flash, redirect, request
 from app import app
 from forms import InputForm
 import random
@@ -8,10 +8,15 @@ import random
 @app.route('/submit.html', methods = ['GET', 'POST'])
 def submit():
 	form = InputForm()
-	if form.validate_on_submit():
-		flash('Item requested=' + form.item.data)
-		return redirect('/submit.html')
-	return render_template("submit.html", form = form)
+	if request.method == 'POST':
+		if form.validate() == False:
+			flash ('Invalid entry.')
+			return render_template("submit.html", form = form)
+		else: 
+			flash ('Added' + " " + '"' + form.item.data + '"' + " to the swotpad.")
+			return redirect('/submit.html')	
+	elif request.method == 'GET':
+		return render_template("submit.html", form = form)
 
 @app.route('/generate.html')
 def generate():
