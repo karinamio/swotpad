@@ -1,7 +1,7 @@
 from flask import render_template, flash, redirect, request, url_for
 from app import app
 from forms import InputForm
-from models import db
+from models import db, Item
 import random
 
 @app.route('/')
@@ -14,6 +14,9 @@ def submit():
 			flash ('Invalid entry.')
 			return render_template("submit.html", form = form)
 		else: 
+			newitem = Item(form.item.data)
+			db.session.add(newitem)
+			db.session.commit()
 			flash ('Added' + " " + '"' + form.item.data + '"' + " to the swotpad.")
 			return redirect('/submit.html')	
 	elif request.method == 'GET':
@@ -28,13 +31,6 @@ def generate():
 @app.route('/report.html')
 def report():
 	return render_template("report.html")
-
-@app.route('/testdb')
-def testdb():
-	if db.session.query("1").from_statement("SELECT 1").all():
-		return 'It works.'
-	else:
-		return "Something is broken."	
 
 @app.errorhandler(404)
 def not_found(error):
