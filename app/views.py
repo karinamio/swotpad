@@ -26,7 +26,10 @@ def submit():
 def generate():
 	posts = ['wash face', 'flush toilet','eat cheese']
 	message = random.choice(posts)
-	return render_template("generate.html", message = message)
+	items = db.session.query(Item.item).all()
+	randomizer = random.choice(items)
+	item = randomizer.item
+	return render_template("generate.html", item = item)
 
 @app.route('/report.html')
 def report():

@@ -5,6 +5,3 @@ from wtforms.validators import Required
 class InputForm(Form):
 	item = TextField('item', [validators.Required('Invalid entry.')])
 	submit = SubmitField('submit')
-
-	def __init__(self, *args, **kwargs):
-		Form.__init__(self, *args, **kwargs)

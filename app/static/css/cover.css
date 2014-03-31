@@ -26,6 +26,7 @@ a:hover {
 .error {
   list-style: none;
   color: red;
+  padding-left: 0;
 }
 
 /*
