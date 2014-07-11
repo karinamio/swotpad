@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% set active_page = "load.html" %}
+{% block content %}
+
+<div class="inner cover">
+  <h1 class="cover-heading">What's on your mind?</h1>
+    <p class="lead">Never forget again.</p><br>
+         
+  <form role="form" action = "{{ url_for('load') }}" method="post" name="item">
+    {{form.hidden_tag()}}
+  <div class="form-group">
+    {{form.item(size=150)}}<br>
+    {% for message in get_flashed_messages() %}
+      <ul class="error">
+      <li>{{ message }}</li>
+      </ul>
+    {% endfor %}
+    <br>
+  {{ form.submit }}
+  </div>
+  </form>
+</div>
+
+{% endblock %}

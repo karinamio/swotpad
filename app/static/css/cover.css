@@ -133,6 +133,7 @@ body {
   min-height: 100%;
 }
 .site-wrapper-inner {
+  padding-top: 6%;
   display: table-cell;
   vertical-align: top;
 }
@@ -159,7 +160,7 @@ body {
   display: inline-block;
 }
 .masthead-nav > li + li {
-  margin-left: 20px;
+  padding-left: 15px;
 }
 .masthead-nav > li > a {
   padding-right: 0;
@@ -247,4 +248,8 @@ body {
   .cover-container {
     width: 700px;
   }
+}
+
+.no-ul:hover {
+  text-decoration: none;
 }

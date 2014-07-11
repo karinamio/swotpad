@@ -6,32 +6,33 @@ import random
 
 @app.route('/')
 @app.route('/index')
-@app.route('/submit.html', methods = ['GET', 'POST'])
-def submit():
+@app.route('/load', methods = ['GET', 'POST'])
+def load():
 	form = InputForm()
 	if request.method == 'POST':
 		if form.validate() == False:
 			flash ('Invalid entry.')
-			return render_template("submit.html", form = form)
+			return render_template("load.html", form = form)
 		else: 
 			newitem = Item(form.item.data)
 			db.session.add(newitem)
 			db.session.commit()
 			flash ('Added' + " " + '"' + form.item.data + '"' + " to the swotpad.")
-			return redirect('/submit.html')	
+			return redirect('/load')	
 	elif request.method == 'GET':
-		return render_template("submit.html", form = form)
+		return render_template("load.html", form = form)
 
-@app.route('/generate.html')
-def generate():
-	posts = ['wash face', 'flush toilet','eat cheese']
-	message = random.choice(posts)
+@app.route('/deploy')
+def deploy():
 	items = db.session.query(Item.item).all()
-	randomizer = random.choice(items)
-	item = randomizer.item
-	return render_template("generate.html", item = item)
+	if not items: 
+		return render_template ("deploy.html", item = 'you gotta load up the swotpad first')
+	else:
+		randomizer = random.choice(items)
+		item = randomizer.item
+		return render_template("deploy.html", item = item)
 
-@app.route('/report.html')
+@app.route('/report')
 def report():
 	return render_template("report.html")
 
