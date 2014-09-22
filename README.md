@@ -1,4 +1,4 @@
 swotpad
 =======
 
-A personal development web application.
+A platform to crowdsource ideas.
